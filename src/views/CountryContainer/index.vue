@@ -4,13 +4,17 @@
       <small-title title="地图面板" />aaa
     </div>
     <div class="timeline">
-      <small-title title="时间轴面板" />aaa
+      <small-title title="时间轴面板" />
+      <timeline-chart/>
     </div>
     <div class="parallel">
       <small-title title="平行坐标" />
       <pollution-chart />
     </div>
-    <div class="ranking">aaa</div>
+    <div class="ranking">
+      <small-title title="污染TOP10排名" />
+      <ranking />
+    </div>
     <div class="div5">aaa</div>
     <div class="div6">aaa</div>
     <div class="div7">aaa</div>
@@ -20,9 +24,16 @@
 <script>
 import smallTitle from "@/components/smallTitle";
 import pollutionChart from "./components/pollutionChart";
+import ranking from "./components/Rank";
+import timelineChart from "./components/TimelineChart";
 export default {
   name: "index",
-  components: { pollutionChart, smallTitle }
+  components: {
+    pollutionChart,
+    smallTitle,
+    ranking,
+    timelineChart,
+  }
   // components: { smallTitle }
 };
 </script>
@@ -57,7 +68,7 @@ export default {
   border-radius: 3px;
 }
 .parallel {
-  position:relative;
+  position: relative;
   grid-area: 7 / 1 / 11 / 4;
   background-color: whitesmoke;
   box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),

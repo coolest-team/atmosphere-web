@@ -2,7 +2,7 @@
   <div id="timelineChart" style="width:100%; height: 79%"></div>
 </template>
     
-    <script>
+<script>
 import { getTimeline } from "../../../request/api";
 export default {
   data() {
@@ -49,7 +49,8 @@ export default {
       });
     },
     mapFn() {
-      var mapChart = this.$echarts.init(
+      var _this = this;
+      var myChart = this.$echarts.init(
         document.getElementById("timelineChart")
       );
 
@@ -194,11 +195,16 @@ export default {
           }
         ]
       };
-      mapChart.setOption(option);
+      myChart.setOption(option);
+
+      myChart.on("click", function(params) {
+        var date = params.name;
+        _this.$emit("getDate", date);
+      });
 
       window.addEventListener("resize", () => {
         // 自动渲染echarts
-        mapChart.resize();
+        myChart.resize();
       });
     }
   }

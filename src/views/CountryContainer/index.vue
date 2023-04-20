@@ -5,7 +5,7 @@
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />
-      <timeline-chart/>
+      <timeline-chart @getDate="changeDate" />
     </div>
     <div class="parallel">
       <small-title title="平行坐标" />
@@ -15,7 +15,7 @@
       <small-title title="污染TOP10排名" />
       <ranking />
     </div>
-    <div class="div5">aaa</div>
+    <div class="div5">{{ this.date }}</div>
     <div class="div6">aaa</div>
     <div class="div7">aaa</div>
   </div>
@@ -33,6 +33,16 @@ export default {
     smallTitle,
     ranking,
     timelineChart,
+  },
+  data(){
+    return {
+      date: "2016-01-01"
+    }
+  },
+  methods:{
+    changeDate(date){
+        this.date = date;
+    },
   }
   // components: { smallTitle }
 };

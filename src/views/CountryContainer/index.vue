@@ -1,0 +1,97 @@
+<template>
+  <div class="parent">
+    <div class="map">
+      <small-title title="地图面板" />aaa
+    </div>
+    <div class="timeline">
+      <small-title title="时间轴面板" />aaa
+    </div>
+    <div class="parallel">
+      <small-title title="平行坐标" />
+      <pollution-chart />
+    </div>
+    <div class="ranking">aaa</div>
+    <div class="div5">aaa</div>
+    <div class="div6">aaa</div>
+    <div class="div7">aaa</div>
+  </div>
+</template>
+
+<script>
+import smallTitle from "@/components/smallTitle";
+import pollutionChart from "./components/pollutionChart";
+export default {
+  name: "index",
+  components: { pollutionChart, smallTitle }
+  // components: { smallTitle }
+};
+</script>
+  
+<style scoped>
+/* div {
+  box-shadow: 0 4px 8px 0 rgba(67, 67, 67, 0.2), 0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+} */
+.parent {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.map {
+  grid-area: 1 / 4 / 9 / 10;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+}
+.timeline {
+  grid-area: 9 / 4 / 11 / 10;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+}
+.parallel {
+  position:relative;
+  grid-area: 7 / 1 / 11 / 4;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+  /* width: 500px;
+  height: 500px; */
+}
+.ranking {
+  grid-area: 1 / 10 / 7 / 13;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+}
+.div5 {
+  grid-area: 7 / 10 / 11 / 13;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+}
+.div6 {
+  grid-area: 1 / 1 / 4 / 4;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+}
+.div7 {
+  grid-area: 4 / 1 / 7 / 4;
+  background-color: whitesmoke;
+  box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
+    0 6px 20px 0 rgba(80, 80, 80, 0.19);
+  border-radius: 3px;
+}
+</style>

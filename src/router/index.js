@@ -1,0 +1,24 @@
+import VueRouter from "vue-router";
+import Vue from "vue";
+
+Vue.use(VueRouter);
+
+const routes = [
+  { path: "/", redirect: "/overview" },
+  {
+    path: "/home",
+    name: "index",
+    component: () => import("../views/index.vue"),
+  },
+  {
+    path: "/overview",
+    name: "overview",
+    component: () => import("../views/CountryContainer/index.vue"),
+  },
+];
+
+const router = new VueRouter({
+  routes,
+  mode: "history",
+});
+export default router;

@@ -9,7 +9,7 @@
     </div>
     <div class="parallel">
       <small-title title="平行坐标" />
-      <pollution-chart />
+      <pollution-chart :date="date"/>
     </div>
     <div class="ranking">
       <small-title title="污染TOP10排名" />
@@ -32,17 +32,17 @@ export default {
     pollutionChart,
     smallTitle,
     ranking,
-    timelineChart,
+    timelineChart
   },
-  data(){
+  data() {
     return {
       date: "2016-01-01"
-    }
+    };
   },
-  methods:{
-    changeDate(date){
-        this.date = date;
-    },
+  methods: {
+    changeDate(date) {
+      this.date = date;
+    }
   }
   // components: { smallTitle }
 };

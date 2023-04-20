@@ -10,13 +10,16 @@ export default {
       renderData: []
     };
   },
+  props: {
+    date: String
+  },
   mounted() {
     this.initData();
   },
   methods: {
     initData() {
       getProvincePollutedParallel({
-        date: "2016-01-06"
+        date: this.date
       }).then(res => {
         // console.log("平行坐标的res", res.data);
         this.renderData = res.data;
@@ -92,7 +95,7 @@ export default {
           left: "1%",
           top: "1%",
           right: "1%",
-          bottom: "1%",
+          bottom: "1%"
         },
         tooltip: {
           padding: 10,
@@ -135,23 +138,20 @@ export default {
             name: "AQI指数",
             nameLocation: "end",
             nameGap: 20,
-            nameRotate:14,
+            nameRotate: 14,
             nameTextStyle: {
               fontSize: 12
             },
             axisLine: {
-              lineStyle: {
-              }
+              lineStyle: {}
             },
             axisTick: {
-              lineStyle: {
-              }
+              lineStyle: {}
             },
             splitLine: {
               show: false
             },
-            axisLabel: {
-            }
+            axisLabel: {}
           }
         },
         series: [
@@ -172,7 +172,7 @@ export default {
         console.log("this.renderData", this.renderData);
       });
     }
-  }
+  },
   //   watch: {
   //     year() {
   //       this.initData();
@@ -181,10 +181,16 @@ export default {
   //       this.initData();
   //     }
   //   }
+  watch: {
+    date: function(newVal, oldVal) {
+      console.log(newVal, oldVal);
+      console.log("有没有在watch啊");
+      this.initData();
+    }
+  }
 };
 </script>
   
 <style scoped>
-
 </style>
   

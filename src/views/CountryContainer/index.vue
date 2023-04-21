@@ -10,14 +10,17 @@
     </div>
     <div class="parallel">
       <small-title title="平行坐标" />
-      <pollution-chart :date="date"/>
+      <pollution-chart :date="date" />
     </div>
     <div class="ranking">
       <small-title title="污染TOP10排名" />
       <ranking />
     </div>
     <div class="div5">{{ this.date }}</div>
-    <div class="div6">aaa</div>
+    <div class="div6">
+      <small-title title="数值显示" />
+      <ring-gauge />
+    </div>
     <div class="div7">aaa</div>
   </div>
 </template>
@@ -27,7 +30,11 @@ import smallTitle from "@/components/smallTitle";
 import pollutionChart from "./components/pollutionChart";
 import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
+<<<<<<< Updated upstream
 import mapChart from "./components/China"
+=======
+import RingGauge from "./components/RingGauge";
+>>>>>>> Stashed changes
 export default {
   name: "index",
   components: {
@@ -35,7 +42,11 @@ export default {
     smallTitle,
     ranking,
     timelineChart,
+<<<<<<< Updated upstream
     mapChart
+=======
+    RingGauge
+>>>>>>> Stashed changes
   },
   data() {
     return {

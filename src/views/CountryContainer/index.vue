@@ -30,11 +30,8 @@ import smallTitle from "@/components/smallTitle";
 import pollutionChart from "./components/pollutionChart";
 import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
-<<<<<<< Updated upstream
 import mapChart from "./components/China"
-=======
 import RingGauge from "./components/RingGauge";
->>>>>>> Stashed changes
 export default {
   name: "index",
   components: {
@@ -42,11 +39,8 @@ export default {
     smallTitle,
     ranking,
     timelineChart,
-<<<<<<< Updated upstream
-    mapChart
-=======
-    RingGauge
->>>>>>> Stashed changes
+    mapChart,
+    RingGauge,
   },
   data() {
     return {

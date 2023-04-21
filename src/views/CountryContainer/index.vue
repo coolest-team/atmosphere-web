@@ -19,7 +19,7 @@
     <div class="div5">{{ this.date }}</div>
     <div class="div6">
       <small-title title="数值显示" />
-      <ring-gauge />
+      <ring-gauge :date="date" />
     </div>
     <div class="div7">aaa</div>
   </div>

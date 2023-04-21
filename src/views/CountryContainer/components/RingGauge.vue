@@ -3,7 +3,7 @@
 </template>
     
 <script>
-// import { getProvincePollutedParallel } from "@/request/api";
+import { getProvinceGauge } from "@/request/api";
 export default {
   data() {
     return {
@@ -18,16 +18,17 @@ export default {
   },
   methods: {
     initData() {
-      this.mapFn();
-      //   getProvincePollutedParallel({
-      //     date: this.date
-      //   }).then(res => {
-      //     // console.log("平行坐标的res", res.data);
-      //     this.renderData = res.data;
-      //     this.mapFn();
-      //   });
+      getProvinceGauge({
+        date: this.date,
+        province: "安徽省"
+      }).then(res => {
+        // console.log("平行坐标的res", res.data);
+        this.renderData = res.data;
+        this.mapFn();
+      });
     },
     mapFn() {
+      var _this = this;
       var myChart = this.$echarts.getInstanceByDom(
         document.getElementById("ringGauge")
       );
@@ -38,69 +39,87 @@ export default {
       // PM2.5,PM10,CO,NO2,SO2,O3,
       var gaugeData = [
         {
-          value: 20,
+          value: (this.renderData[1] / 150) * 100,
           name: "PM2.5",
           title: {
             offsetCenter: ["-200%", "-60%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["-200%", "-35%"]
+            offsetCenter: ["-200%", "-35%"],
+            formatter: function() {
+              return _this.renderData[1].toFixed(1);
+            }
           }
         },
         {
-          value: 40,
+          value: (this.renderData[2] / 350) * 100,
           name: "PM10",
           title: {
             offsetCenter: ["-200%", "0%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["-200%", "25%"]
+            offsetCenter: ["-200%", "25%"],
+            formatter: function() {
+              return _this.renderData[2].toFixed(1);
+            }
           }
         },
         {
-          value: 60,
+          value: (this.renderData[3] / 800) * 100,
           name: "SO2",
           title: {
             offsetCenter: ["-200%", "60%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["-200%", "85%"]
+            offsetCenter: ["-200%", "85%"],
+            formatter: function() {
+              return _this.renderData[3].toFixed(1);
+            }
           }
         },
         {
-          value: 80,
+          value: (this.renderData[4] / 280) * 100,
           name: "NO2",
           title: {
             offsetCenter: ["200%", "-60%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["200%", "-35%"]
+            offsetCenter: ["200%", "-35%"],
+            formatter: function() {
+              return _this.renderData[4].toFixed(1);
+            }
           }
         },
         {
-          value: 20,
+          value: (this.renderData[5] / 24) * 100,
           name: "CO",
           title: {
             offsetCenter: ["200%", "0%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["200%", "25%"]
+            offsetCenter: ["200%", "25%"],
+            formatter: function() {
+              return _this.renderData[5].toFixed(1);
+            }
           }
         },
         {
-          value: 40,
+          value: (this.renderData[6] / 265) * 100,
           name: "03",
           title: {
             offsetCenter: ["200%", "60%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["200%", "85%"]
+            offsetCenter: ["200%", "85%"],
+            formatter: function() {
+              return _this.renderData[6].toFixed(1);
+            }
           }
         }
       ];
@@ -156,16 +175,11 @@ export default {
             detail: {
               width: 20,
               height: 4,
-              fontSize: 14,
+              fontSize: 12,
               color: "inherit",
               borderColor: "inherit",
-              borderRadius: 20,
+              borderRadius: 25,
               borderWidth: 1,
-              formatter: (params)=>{
-                console.log("this is ringgauge",params)
-                return params
-              }
-            //   "{value}%"
             }
           }
         ]

@@ -1,7 +1,8 @@
 <template>
   <div class="parent">
     <div class="map">
-      <small-title title="地图面板" />aaa
+      <small-title title="地图面板" />
+      <map-chart/>
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />
@@ -26,13 +27,15 @@ import smallTitle from "@/components/smallTitle";
 import pollutionChart from "./components/pollutionChart";
 import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
+import mapChart from "./components/China"
 export default {
   name: "index",
   components: {
     pollutionChart,
     smallTitle,
     ranking,
-    timelineChart
+    timelineChart,
+    mapChart
   },
   data() {
     return {
@@ -47,7 +50,7 @@ export default {
   // components: { smallTitle }
 };
 </script>
-  
+
 <style scoped>
 /* div {
   box-shadow: 0 4px 8px 0 rgba(67, 67, 67, 0.2), 0 6px 20px 0 rgba(80, 80, 80, 0.19);

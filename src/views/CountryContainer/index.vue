@@ -2,7 +2,8 @@
   <div class="parent">
     <div class="map">
       <small-title title="地图面板" />
-      <map-chart :date="date" />
+      <mapc-chart v-show="drill==false" :date="date" @getdrill="changeDrill" @getname="changename" @getename="changeename"/>
+      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" @getdrill="changeDrill" />
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />
@@ -30,7 +31,8 @@ import smallTitle from "@/components/smallTitle";
 import pollutionChart from "./components/pollutionChart";
 import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
-import mapChart from "./components/China"
+import mapcChart from "./components/China";
+import mappChart from "./components/Province";
 import RingGauge from "./components/RingGauge";
 export default {
   name: "index",
@@ -39,17 +41,30 @@ export default {
     smallTitle,
     ranking,
     timelineChart,
-    mapChart,
+    mapcChart,
+    mappChart,
     RingGauge,
   },
   data() {
     return {
-      date: "2016-01-01"
+      drill:false,
+      date: "2016-01-01",
+      ename:"zhejiang",
+      name:"浙江"
     };
   },
   methods: {
     changeDate(date) {
       this.date = date;
+    },
+    changeDrill(drill){
+      this.drill=drill;
+    },
+    changename(name){
+      this.name=name;
+    },
+    changeename(ename){
+      this.ename=ename;
     }
   }
   // components: { smallTitle }

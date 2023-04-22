@@ -147,7 +147,6 @@ export default {
       this.myChart = echarts.init(this.$refs.char);
       this.myChart.setOption(this.option);
       this.myChart.on("click", function(params) {
-        alert(params.name)
         var ename=pinyin.getFullChars(params.name)
         if(params.name=='内蒙古')
         {
@@ -156,11 +155,14 @@ export default {
         else if(params.name=='西藏'){
           ename='xizang'
         }
-        _this.$router.push({
-          path: "/province",
-          query: { provinceName: params.name, province: ename },
-        });
-        })
+        else if(params.name=='陕西'){
+          ename="shanxi1"
+        }
+        console.log(ename)
+        _this.$emit("getdrill", true);
+        _this.$emit("getname", params.name);
+        _this.$emit("getename", ename);
+      })
     },
   },
   mounted() {
@@ -175,6 +177,7 @@ export default {
       this.myChart.setOption(this.option);
     },
     citydata(value) {
+      console.log("中国监听")
       this.option.series[0].data = value;
       this.myChart.setOption(this.option);
     },

@@ -20,6 +20,9 @@
     <div class="div5">{{ this.date }}</div>
     <div class="pollunum">
       <small-title title="数值显示" />
+      <radio-box @getPollu="changePollu"/>
+      <!-- <div style="position:absolute;z-index=1;"> -->
+      <!-- <a-radio-group v-model:value="value1" option-type="button" :options="plainOptions" /></div> -->
       <ring-gauge :date="date" />
     </div>
     <div class="weathernum">
@@ -31,6 +34,7 @@
 
 <script>
 import smallTitle from "@/components/smallTitle";
+import RadioBox from "@/components/RadioBox";
 import pollutionChart from "./components/pollutionChart";
 import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
@@ -43,6 +47,7 @@ export default {
   components: {
     pollutionChart,
     smallTitle,
+    RadioBox,
     ranking,
     timelineChart,
     mapcChart,
@@ -52,6 +57,7 @@ export default {
   },
   data() {
     return {
+      pollu: "AQI",
       drill:false,
       date: "2016-01-01",
       ename:"zhejiang",
@@ -61,6 +67,10 @@ export default {
   methods: {
     changeDate(date) {
       this.date = date;
+    },
+    changePollu(pollu){
+      this.pollu = pollu;
+      console.log("这里是index.vue 传pollu");
     },
     changeDrill(drill){
       this.drill=drill;
@@ -130,6 +140,7 @@ export default {
   border-radius: 3px;
 }
 .pollunum {
+  display: relative;
   grid-area: 1 / 1 / 4 / 4;
   background-color: whitesmoke;
   box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),

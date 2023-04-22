@@ -208,14 +208,6 @@ export default {
       });
     }
   }
-  //   watch: {
-  //     year() {
-  //       this.initData();
-  //     },
-  //     province() {
-  //       this.initData();
-  //     }
-  //   }
 };
 </script>
     

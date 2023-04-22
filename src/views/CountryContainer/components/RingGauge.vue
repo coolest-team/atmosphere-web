@@ -1,5 +1,5 @@
 <template>
-  <div id="ringGauge" style="width:100%;height: 88%"></div>
+  <div id="ringGauge" style="width:100%;height: 88%;z-index:2"></div>
 </template>
     
 <script>
@@ -186,20 +186,18 @@ export default {
       };
       myChart.setOption(option);
 
+      myChart.on("click", function(params) {
+        // var date = params.name;
+        console.log(params);
+        // _this.$emit("getDate", date);
+      });
+
       window.addEventListener("resize", () => {
         // 自动渲染echarts
         myChart.resize();
       });
     }
   },
-  //   watch: {
-  //     year() {
-  //       this.initData();
-  //     },
-  //     province() {
-  //       this.initData();
-  //     }
-  //   }
   watch: {
     date: function(newVal, oldVal) {
       console.log(newVal, oldVal);

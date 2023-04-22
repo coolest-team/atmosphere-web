@@ -4,7 +4,6 @@
       <!-- 风向角度：{{ this.winddir }}
       风力速率：{{ this.windnum }}-->
       <div class="smallicon">
-        <!-- <img :src="windUrl" width="50px" height="50px"> -->
         {{ this.winddir }}
       </div>
       <div class="numeric">
@@ -56,7 +55,6 @@ export default {
       temp: [],
       rh: [],
       psfc: [],
-      windUrl: require('../../../assets/icons/6042.png_860.png'),
     };
   },
   props: {

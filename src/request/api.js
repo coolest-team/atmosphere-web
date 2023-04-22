@@ -7,3 +7,5 @@ export const getProvinceGauge = p => get('/getProvinceGauge/',p);
 export const getProvincePollutedParallel = p => get('/getProvincePollutedParallel/', p);
 
 export const getProvinceMap = p => get('/getProvinceMap/',p);
+
+export const getCityMap = p => get('/getCityMap/',p);

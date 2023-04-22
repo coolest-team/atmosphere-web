@@ -2,7 +2,7 @@
   <div class="parent">
     <div class="map">
       <small-title title="地图面板" />
-      <map-chart/>
+      <map-chart :date="date" />
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />

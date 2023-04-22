@@ -37,12 +37,12 @@ export default {
         visualMap: {
           type: 'piecewise',
           pieces: [
-            {min: 301, max: 500,label: '严重污染',color: '#b30000'},
-            {min: 201, max: 300,label: '重度污染',color: '#e34a33'},
-            {min: 151, max: 200,label: '中度污染',color: '#fc8d59'},
-            {min: 101, max: 150,label: '轻度污染',color: '#fdbb84'},
-            {min: 51, max: 100,label: '良',color: '#fdd49e'},
-            {min: 0, max: 50, label: '优',color: '#fef0d9'},
+            {min: 300, max: 500,label: '严重污染',color: '#990000'},
+            {min: 200, max: 300,label: '重度污染',color: '#d7301f'},
+            {min: 150, max: 200,label: '中度污染',color: '#ef6548'},
+            {min: 100, max: 150,label: '轻度污染',color: '#fc8d59'},
+            {min: 50, max: 100,label: '良',color: '#fdbb84'},
+            {min: 0, max: 50, label: '优',color: '#fdd49e'},
           ],
           right:530,
           top:400
@@ -126,7 +126,22 @@ export default {
       }
     };
   },
+  props: {
+    date: String
+  },
   methods: {
+    initData(){
+      getProvinceMap({"date":this.date}).then(resp => {
+        //this.$mapdata=resp.data.data
+        var temp=[]
+        for(let i=0;i<resp.data.length;i++)
+        {
+          temp.push({"name":resp.data[i][7],"value":resp.data[i][0]})
+        }
+        this.citydata=temp
+      })
+      this.init()
+    },
     init() {
       var _this=this
       this.myChart = echarts.init(this.$refs.char);
@@ -149,18 +164,10 @@ export default {
     },
   },
   mounted() {
-    this.init();
+    this.initData();
   },
   created() {
-    getProvinceMap({"date":"2016-01-01"}).then(resp => {
-      //this.$mapdata=resp.data.data
-      var temp=[]
-      for(let i=0;i<resp.data.length;i++)
-      {
-        temp.push({"name":resp.data[i][7],"value":resp.data[i][0]})
-      }
-      this.citydata=temp
-    })
+
   },
   watch: {
     titledata(value) {
@@ -175,6 +182,9 @@ export default {
       this.option.series[1].data = value;
       this.myChart.setOption(this.option);
     },
+    date: function() {
+      this.initData();
+    }
   }
 }
 </script>

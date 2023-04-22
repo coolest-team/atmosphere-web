@@ -132,13 +132,16 @@ export default {
   methods: {
     initData(){
       getProvinceMap({"date":this.date}).then(resp => {
-        //this.$mapdata=resp.data.data
         var temp=[]
         for(let i=0;i<resp.data.length;i++)
         {
           temp.push({"name":resp.data[i][7],"value":resp.data[i][0]})
         }
         this.citydata=temp
+        temp.sort((a, b) => {
+          return b.value - a.value;
+        });
+        this.$emit("chinadata",temp);
       })
       this.init()
     },
@@ -158,7 +161,6 @@ export default {
         else if(params.name=='陕西'){
           ename="shanxi1"
         }
-        console.log(ename)
         _this.$emit("getdrill", true);
         _this.$emit("getname", params.name);
         _this.$emit("getename", ename);
@@ -177,7 +179,6 @@ export default {
       this.myChart.setOption(this.option);
     },
     citydata(value) {
-      console.log("中国监听")
       this.option.series[0].data = value;
       this.myChart.setOption(this.option);
     },

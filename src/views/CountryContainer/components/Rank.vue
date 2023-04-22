@@ -8,30 +8,10 @@ export default {
   name: "Rank",
   data() {
     return {
-      xData: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], //横坐标
-      yData: [23, 24, 18, 25, 27, 28, 25], //数据
-      myChartStyle: { float: "left", width: "100%", height: "100%" } //图表样式
-    };
-  },
-  mounted() {
-    this.initEcharts();
-  },
-  methods: {
-    initEcharts() {
-      // 基本柱状图
-      // const option = {
-      //   xAxis: {
-      //     data: this.xData
-      //   },
-      //   yAxis: {},
-      //   series: [
-      //     {
-      //       type: "bar", //形状为柱状图
-      //       data: this.yData
-      //     }
-      //   ]
-      // };
-      const option = {
+      xData: [], //数据
+      yData: [], //坐标
+      myChartStyle: { float: "left", width: "100%", height: "100%" }, //图表样式
+      option: {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -71,7 +51,7 @@ export default {
           axisTick: {
             show: false // 刻度线
           },
-          data: ['北京', '上海', '重庆', '四川', '湖北','浙江', '广东', '河南', '山东', '山西']
+          data:this.yData
         },
         series: [
           {
@@ -90,15 +70,50 @@ export default {
               borderWidth: 1,
               borderColor: "black"
             },
-            data: [480,420,400, 396, 390, 380, 350,290,280,268]
+            data: this.xData
           }
         ]
-      };
-      const myChart = echarts.init(document.getElementById("ranking"));
-      myChart.setOption(option);
+      },
+    };
+  },
+  mounted() {
+    this.initEcharts();
+    this.initdata();
+  },
+  props: {
+    data:[]
+  },
+  watch:{
+    data: function (){
+      this.initdata();
+    }
+  },
+  methods: {
+    initdata(){
+      console.log("rank")
+      var tempx=[];
+      var tempy=[];
+      var k=10;
+      if(this.data.length<10){
+        k=this.data.length;
+      }
+      for(let i=0;i<k;i++)
+      {
+        tempy.push(this.data[i].name);
+        tempx.push(this.data[i].value);
+      }
+      this.xData=tempx;
+      this.yData=tempy;
+      this.option.series[0].data=this.xData;
+      this.option.yAxis.data=this.yData;
+      this.myChart.setOption(this.option);
+    },
+    initEcharts() {
+      this.myChart = echarts.init(document.getElementById("ranking"));
+      this.myChart.setOption(this.option);
       //随着屏幕大小调节图表
       window.addEventListener("resize", () => {
-        myChart.resize();
+        this.myChart.resize();
       });
     }
   }

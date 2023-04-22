@@ -109,36 +109,36 @@ export default {
     ename:String
   },
   mounted () {
-
-    // this.initData();
     this.init();
     this.resizeListener();
   },
   watch:{
     name: function ()
     {
-      // this.initData();
       this.init()
     },
     dataupdate: function (value) {
-      console.log("监听了吗")
       this.option.series[0].data = value;
-      //this.myChart.setOption(this.option);
       this.echartObj.setOption(this.option);
     },
   },
   methods: {
     init(){
-      getCityMap({province:this.name,date:this.date}).then(resp => {
-        //this.$mapdata=resp.data.data
-        var temp=[]
-        for(let i=0;i<resp.data.length;i++)
-        {
-          temp.push({"name":resp.data[i][7],"value":resp.data[i][0]})
-        }
-        this.dataupdate=temp
-        this.initData()
-      })
+      if(this.name!='中国'){
+        getCityMap({province:this.name,date:this.date}).then(resp => {
+          var temp=[]
+          for(let i=0;i<resp.data.length;i++)
+          {
+            temp.push({"name":resp.data[i][7],"value":resp.data[i][0]})
+          }
+          this.dataupdate=temp
+          temp.sort((a, b) => {
+            return b.value - a.value;
+          });
+          this.$emit("provincedata",temp);
+          this.initData()
+        })
+      }
     },
     initData(){
       const provinceName = this.name
@@ -159,6 +159,7 @@ export default {
     },
     goBack () {
       this.$emit("getdrill", false);
+      this.$emit("getname",'中国');
     },
   }
 

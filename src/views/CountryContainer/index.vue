@@ -2,8 +2,8 @@
   <div class="parent">
     <div class="map">
       <small-title title="地图面板" />
-      <mapc-chart v-show="drill==false" :date="date" @getdrill="changeDrill" @getname="changename" @getename="changeename"/>
-      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" @getdrill="changeDrill" />
+      <mapc-chart v-show="drill==false" :date="date" @getname="changename" @getename="changeename" @getdrill="changeDrill" @chinadata="chinaData"/>
+      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" @getname="changename" @getdrill="changeDrill" @provincedata="provinceData" />
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />
@@ -14,8 +14,8 @@
       <pollution-chart :date="date" />
     </div>
     <div class="ranking">
-      <small-title title="污染TOP10排名" />
-      <ranking />
+      <small-title title="污染TOP10排名"/>
+      <ranking :data="chinadata"/>
     </div>
     <div class="div5">{{ this.date }}</div>
     <div class="pollunum">
@@ -32,12 +32,12 @@
 
 <script>
 import smallTitle from "@/components/smallTitle";
+import mapcChart from "./components/China";
 import RadioBox from "@/components/RadioBox";
+import mappChart from "./components/Province";
 import pollutionChart from "./components/pollutionChart";
 import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
-import mapcChart from "./components/China";
-import mappChart from "./components/Province";
 import RingGauge from "./components/RingGauge";
 import WeatherTable from "./components/WeatherTable";
 export default {
@@ -57,9 +57,12 @@ export default {
     return {
       pollu: "AQI",
       drill:false,
+      rankc:false,
       date: "2016-01-01",
       ename:"zhejiang",
-      name:"浙江"
+      name:"中国",
+      chinadata:[{"name":"天津","value":"244"},{"name":"北京","value":"186.06"},{"name":"山东","value":"170.31"},{"name":"河南","value":"165.85"},{"name":"河北","value":"154.54"},{"name":"安徽","value":"144.47"},{"name":"重庆","value":"143.98"},{"name":"辽宁","value":"142.05"},{"name":"江苏","value":"135.29"},{"name":"湖北","value":"130.12"}],
+      tempdata:[{"name":"天津","value":"244"},{"name":"北京","value":"186.06"},{"name":"山东","value":"170.31"},{"name":"河南","value":"165.85"},{"name":"河北","value":"154.54"},{"name":"安徽","value":"144.47"},{"name":"重庆","value":"143.98"},{"name":"辽宁","value":"142.05"},{"name":"江苏","value":"135.29"},{"name":"湖北","value":"130.12"}]
     };
   },
   methods: {
@@ -75,10 +78,21 @@ export default {
     },
     changename(name){
       this.name=name;
+      if(name=='中国'){
+        this.chinadata=this.tempdata;
+      }
     },
     changeename(ename){
       this.ename=ename;
-    }
+    },
+    chinaData(china){
+      this.chinadata=china;
+      this.tempdata=china;
+    },
+    provinceData(province){
+      this.provincedata=province;
+      this.chinadata=province;
+    },
   }
   // components: { smallTitle }
 };

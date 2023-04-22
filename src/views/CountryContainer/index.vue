@@ -17,11 +17,14 @@
       <ranking />
     </div>
     <div class="div5">{{ this.date }}</div>
-    <div class="div6">
+    <div class="pollunum">
       <small-title title="数值显示" />
       <ring-gauge :date="date" />
     </div>
-    <div class="div7">aaa</div>
+    <div class="weathernum">
+      <small-title title="气象指标数值显示" />
+      <weather-table :date="date" />
+    </div>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
 import mapChart from "./components/China"
 import RingGauge from "./components/RingGauge";
+import WeatherTable from "./components/WeatherTable";
 export default {
   name: "index",
   components: {
@@ -41,6 +45,7 @@ export default {
     timelineChart,
     mapChart,
     RingGauge,
+    WeatherTable,
   },
   data() {
     return {
@@ -109,14 +114,14 @@ export default {
     0 6px 20px 0 rgba(80, 80, 80, 0.19);
   border-radius: 3px;
 }
-.div6 {
+.pollunum {
   grid-area: 1 / 1 / 4 / 4;
   background-color: whitesmoke;
   box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),
     0 6px 20px 0 rgba(80, 80, 80, 0.19);
   border-radius: 3px;
 }
-.div7 {
+.weathernum {
   grid-area: 4 / 1 / 7 / 4;
   background-color: whitesmoke;
   box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),

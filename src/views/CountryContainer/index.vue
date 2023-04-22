@@ -21,8 +21,6 @@
     <div class="pollunum">
       <small-title title="数值显示" />
       <radio-box @getPollu="changePollu"/>
-      <!-- <div style="position:absolute;z-index=1;"> -->
-      <!-- <a-radio-group v-model:value="value1" option-type="button" :options="plainOptions" /></div> -->
       <ring-gauge :date="date" />
     </div>
     <div class="weathernum">

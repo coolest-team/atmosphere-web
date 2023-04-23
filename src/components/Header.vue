@@ -7,9 +7,8 @@
                     <span>气析</span>
                 </h1>
                 <nav>
-                    <router-link active-class="active" to="/home">首页</router-link>
-                    <router-link active-class="active" to="/overview">总览</router-link>
-                    <!-- <router-link active-class="active" to="/community">社区</router-link> -->
+                    <router-link active-class="active" to="/overview">全国态势分析</router-link>
+                    <router-link active-class="active" to="/predict">未来污染预测</router-link>
                 </nav>
             </div>
             <!-- <div class="box">
@@ -74,7 +73,7 @@
     }
     nav a{
         padding: 0 15px;
-        width: 32px;
+        width: 98px;
         text-decoration:none;
         color: #ffffff;
         font-size: 16px;

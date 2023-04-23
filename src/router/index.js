@@ -5,15 +5,20 @@ Vue.use(VueRouter);
 
 const routes = [
   { path: "/", redirect: "/overview" },
-  {
-    path: "/home",
-    name: "index",
-    component: () => import("../views/index.vue"),
-  },
+  // {
+  //   path: "/home",
+  //   name: "index",
+  //   component: () => import("../views/index.vue"),
+  // },
   {
     path: "/overview",
     name: "overview",
     component: () => import("../views/CountryContainer/index.vue"),
+  },
+  {
+    path: "/predict",
+    name: "predict",
+    component: () => import("../views/PredictContainer/index.vue"),
   },
 ];
 

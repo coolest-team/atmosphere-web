@@ -17,7 +17,10 @@
       <small-title title="污染TOP10排名"/>
       <ranking :data="chinadata"/>
     </div>
-    <div class="div5">{{ this.date }}</div>
+    <div class="relationship">
+      <small-title title="污染物与物理情况关系图" />
+      <Relationship />
+    </div>
     <div class="pollunum">
       <small-title :title="`${this.hovername}数值显示`" />
       <radio-box @getPollu="changePollu"/>
@@ -40,6 +43,7 @@ import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
 import RingGauge from "./components/RingGauge";
 import WeatherTable from "./components/WeatherTable";
+import Relationship from "./components/Relationship";
 export default {
   name: "index",
   components: {
@@ -52,6 +56,7 @@ export default {
     mappChart,
     RingGauge,
     WeatherTable,
+    Relationship
   },
   data() {
     return {
@@ -149,7 +154,7 @@ export default {
     0 6px 20px 0 rgba(80, 80, 80, 0.19);
   border-radius: 3px;
 }
-.div5 {
+.relationship {
   grid-area: 7 / 10 / 11 / 13;
   background-color: whitesmoke;
   box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),

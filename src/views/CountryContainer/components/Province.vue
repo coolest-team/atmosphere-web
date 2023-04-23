@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div :id="id" class="provinceCharts"></div>
     <Button type="button" class="back" @click="goBack()">返回</Button>
+    <div :id="id" class="provinceCharts"></div>
+    <!-- <Button type="button" class="back" @click="goBack()">返回</Button> -->
   </div>
 </template>
 
@@ -141,6 +142,7 @@ export default {
       }
     },
     initData(){
+      var _this = this;
       const provinceName = this.name
       const province = this.ename
       this.provinceJSON = require('@/utils/省份数据/json(省份)/' + province)
@@ -149,6 +151,11 @@ export default {
       this.echartObj = echarts.init(document.getElementById(this.id))
       echarts.registerMap(province, this.provinceJSON)
       this.echartObj.setOption(this.option);
+      this.echartObj.on("mouseover", function(params) {
+        // var ename = pinyin.getFullChars(params.name);
+        console.log("province.vue里的name", params.name);
+        _this.$emit("gethovername", params.name);
+      });
     },
     resizeListener(){
       window.addEventListener('resize', () => {

@@ -4,6 +4,7 @@
   
 <script>
 import { getProvincePollutedParallel } from "@/request/api";
+import { getCityPollutedParallel } from "@/request/api";
 export default {
   data() {
     return {
@@ -11,7 +12,8 @@ export default {
     };
   },
   props: {
-    date: String
+    date: String,
+    name: String,
   },
   mounted() {
     this.initData();
@@ -21,7 +23,15 @@ export default {
       getProvincePollutedParallel({
         date: this.date
       }).then(res => {
-        // console.log("平行坐标的res", res.data);
+        this.renderData = res.data;
+        this.mapFn();
+      });
+    },
+    initData2() {
+      getCityPollutedParallel({
+        date: this.date,
+        province: this.name,
+      }).then(res => {
         this.renderData = res.data;
         this.mapFn();
       });
@@ -173,19 +183,24 @@ export default {
       });
     }
   },
-  //   watch: {
-  //     year() {
-  //       this.initData();
-  //     },
-  //     province() {
-  //       this.initData();
-  //     }
-  //   }
   watch: {
     date: function(newVal, oldVal) {
       console.log(newVal, oldVal);
       console.log("有没有在watch啊");
-      this.initData();
+      if(this.name == '中国'){
+        this.initData();
+      }
+      else{
+        this.initData2();
+      }
+    },
+    name: function(){
+      if(this.name == '中国'){
+        this.initData();
+      }
+      else{
+        this.initData2();
+      }
     }
   }
 };

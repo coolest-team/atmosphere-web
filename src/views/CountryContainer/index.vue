@@ -2,8 +2,8 @@
   <div class="parent">
     <div class="map">
       <small-title title="地图面板" />
-      <mapc-chart v-show="drill==false" :date="date" @getname="changename" @getename="changeename" @getdrill="changeDrill" @chinadata="chinaData"/>
-      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" @getname="changename" @getdrill="changeDrill" @provincedata="provinceData" />
+      <mapc-chart v-show="drill==false" :date="date" @getname="changename" @getename="changeename" @getdrill="changeDrill" @chinadata="chinaData" @gethovername="changeHoverName"/>
+      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" @getname="changename" @getdrill="changeDrill" @provincedata="provinceData" @gethovername="changeHoverName"/>
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />
@@ -11,7 +11,7 @@
     </div>
     <div class="parallel">
       <small-title title="平行坐标" />
-      <pollution-chart :date="date" />
+      <pollution-chart :date="date" :name="name"/>
     </div>
     <div class="ranking">
       <small-title title="污染TOP10排名"/>
@@ -19,13 +19,13 @@
     </div>
     <div class="div5">{{ this.date }}</div>
     <div class="pollunum">
-      <small-title title="数值显示" />
+      <small-title :title="`${this.hovername}数值显示`" />
       <radio-box @getPollu="changePollu"/>
-      <ring-gauge :date="date" />
+      <ring-gauge :date="date" :name="name" :hovername="hovername"/>
     </div>
     <div class="weathernum">
       <small-title title="气象指标数值显示" />
-      <weather-table :date="date" />
+      <weather-table :date="date" :name="name" :hovername="hovername"/>
     </div>
   </div>
 </template>
@@ -55,6 +55,7 @@ export default {
   },
   data() {
     return {
+      hovername: "浙江",
       pollu: "AQI",
       drill:false,
       rankc:false,
@@ -66,6 +67,10 @@ export default {
     };
   },
   methods: {
+    changeHoverName(hovername) {
+      this.hovername = hovername;
+      console.log("index.vue里的hovername", this.hovername);
+    },
     changeDate(date) {
       this.date = date;
     },
@@ -152,7 +157,7 @@ export default {
   border-radius: 3px;
 }
 .pollunum {
-  display: relative;
+  /* display: relative; */
   grid-area: 1 / 1 / 4 / 4;
   background-color: whitesmoke;
   box-shadow: 0 2px 2px 0 rgba(67, 67, 67, 0.2),

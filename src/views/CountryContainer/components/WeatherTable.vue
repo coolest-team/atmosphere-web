@@ -12,13 +12,15 @@
     </div>
     <div class="udir">
       <div class="smallicon">
-        U
+        <!-- U -->
+        经度风
       </div>
       <div class="numeric">{{ this.udir }}m/s</div>
     </div>
     <div class="vdir">
       <div class="smallicon">
-        V
+        <!-- V -->
+        纬度风
       </div>
       <div class="numeric">{{ this.vdir }}m/s</div>
     </div>
@@ -26,7 +28,7 @@
       <div class="smallicon">
         气温
       </div>
-      <div class="numeric">{{ this.temp }}℃</div>
+      <div class="numeric">{{ this.temp }}K</div>
     </div>
     <div class="rh">
       <div class="smallicon">
@@ -45,6 +47,7 @@
       
 <script>
 import { getProvinceGauge } from "@/request/api";
+import { getCityGauge } from "@/request/api";
 export default {
   data() {
     return {
@@ -58,7 +61,9 @@ export default {
     };
   },
   props: {
-    date: String
+    date: String,
+    name: String,
+    hovername: String,
   },
   mounted() {
     this.initData();
@@ -67,7 +72,25 @@ export default {
     initData() {
       getProvinceGauge({
         date: this.date,
-        province: "安徽省"
+        province: this.hovername,
+      }).then(res => {
+        var alldata = res.data;
+        this.udir = alldata[7].toFixed(2);
+        this.vdir = alldata[8].toFixed(2);
+        this.temp = alldata[9].toFixed(1);
+        this.rh = alldata[10].toFixed(1);
+        this.psfc = alldata[11].toFixed(0);
+        this.winddir = this.windDir(this.udir, this.vdir);
+        this.windnum = Math.sqrt(
+          this.udir * this.udir + this.vdir * this.vdir
+        ).toFixed(2);
+        // this.mapFn();
+      });
+    },
+    initData2() {
+      getCityGauge({
+        date: this.date,
+        city: this.hovername,
       }).then(res => {
         var alldata = res.data;
         this.udir = alldata[7].toFixed(2);
@@ -85,23 +108,36 @@ export default {
     windDir(u, v) {
       var dir = 180 + (Math.atan2(u, v) * 180) / Math.PI;
       if(dir<90 && dir>0){
-        dir = "东北风";
+        dir = "东北风向";
       }
       else if(dir>90 &&dir<180){
-        dir = "西北风";
+        dir = "西北风向";
       }
       else if(dir>180 &&dir <270){
-        dir = "西南风";
+        dir = "西南风向";
       }
       else if(dir>270 &&dir<360){
-        dir = "东南风";
+        dir = "东南风向";
       }
       return dir;
     }
   },
   watch: {
     date: function() {
-      this.initData();
+      if(this.name == '中国'){
+        this.initData();
+      }
+      else{
+        this.initData2();
+      }
+    },
+    hovername: function() {
+      if(this.name == '中国'){
+        this.initData();
+      }
+      else{
+        this.initData2();
+      }
     }
   }
 };
@@ -121,7 +157,8 @@ export default {
   margin-left: 12px;
   position: absolute;
   font-size: 27px;
-  color: grey;
+  font-family:PMingLiU;
+  color: #d3d3d3;
   z-index: 1;
 }
 .numeric {
@@ -129,8 +166,8 @@ export default {
   /* width: 70%; */
   position: absolute;
   margin-top: 25px;
-  margin-left:60px;
-  font-size: 17px;
+  margin-left:50px;
+  font-size: 22px;
   text-align: center;
   z-index: 2;
 }

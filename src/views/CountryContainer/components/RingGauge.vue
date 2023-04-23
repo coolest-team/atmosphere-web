@@ -4,6 +4,7 @@
     
 <script>
 import { getProvinceGauge } from "@/request/api";
+import { getCityGauge } from "@/request/api";
 export default {
   data() {
     return {
@@ -11,7 +12,9 @@ export default {
     };
   },
   props: {
-    date: String
+    date: String,
+    name: String,
+    hovername: String
   },
   mounted() {
     this.initData();
@@ -20,7 +23,17 @@ export default {
     initData() {
       getProvinceGauge({
         date: this.date,
-        province: "安徽省"
+        province: this.hovername,
+      }).then(res => {
+        // console.log("平行坐标的res", res.data);
+        this.renderData = res.data;
+        this.mapFn();
+      });
+    },
+    initData2() {
+      getCityGauge({
+        date: this.date,
+        city: this.hovername,
       }).then(res => {
         // console.log("平行坐标的res", res.data);
         this.renderData = res.data;
@@ -42,11 +55,11 @@ export default {
           value: (this.renderData[1] / 150) * 100,
           name: "PM2.5",
           title: {
-            offsetCenter: ["-200%", "-60%"]
+            offsetCenter: ["-200%", "-70%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["-200%", "-35%"],
+            offsetCenter: ["-200%", "-45%"],
             formatter: function() {
               return _this.renderData[1].toFixed(1);
             }
@@ -70,11 +83,11 @@ export default {
           value: (this.renderData[3] / 800) * 100,
           name: "SO2",
           title: {
-            offsetCenter: ["-200%", "60%"]
+            offsetCenter: ["-200%", "70%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["-200%", "85%"],
+            offsetCenter: ["-200%", "95%"],
             formatter: function() {
               return _this.renderData[3].toFixed(1);
             }
@@ -84,11 +97,11 @@ export default {
           value: (this.renderData[4] / 280) * 100,
           name: "NO2",
           title: {
-            offsetCenter: ["200%", "-60%"]
+            offsetCenter: ["200%", "-70%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["200%", "-35%"],
+            offsetCenter: ["200%", "-45%"],
             formatter: function() {
               return _this.renderData[4].toFixed(1);
             }
@@ -110,13 +123,13 @@ export default {
         },
         {
           value: (this.renderData[6] / 265) * 100,
-          name: "03",
+          name: "O3",
           title: {
-            offsetCenter: ["200%", "60%"]
+            offsetCenter: ["200%", "70%"]
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ["200%", "85%"],
+            offsetCenter: ["200%", "95%"],
             formatter: function() {
               return _this.renderData[6].toFixed(1);
             }
@@ -173,13 +186,13 @@ export default {
               fontSize: 14
             },
             detail: {
-              width: 20,
-              height: 4,
-              fontSize: 12,
+              width: 30,
+              height: 10,
+              fontSize: 18,
               color: "inherit",
               borderColor: "inherit",
               borderRadius: 25,
-              borderWidth: 1,
+              borderWidth: 1
             }
           }
         ]
@@ -202,7 +215,20 @@ export default {
     date: function(newVal, oldVal) {
       console.log(newVal, oldVal);
       console.log("有没有在watch啊");
-      this.initData();
+      if(this.name == '中国'){
+        this.initData();
+      }
+      else{
+        this.initData2();
+      }
+    },
+    hovername: function() {
+      if(this.name == '中国'){
+        this.initData();
+      }
+      else{
+        this.initData2();
+      }
     }
   }
 };

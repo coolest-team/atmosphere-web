@@ -17,17 +17,6 @@ export default {
       dates: []
     };
   },
-  //   computed: {
-  //     province: function() {
-  //       return this.$store.state.province2;
-  //     },
-  //     year: function() {
-  //       return this.$store.state.year;
-  //     }
-  //   },
-  // created() {
-  //   this.initData();
-  // },
   mounted() {
     this.initData();
   },

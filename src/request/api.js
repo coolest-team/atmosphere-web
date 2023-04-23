@@ -13,3 +13,5 @@ export const getCityPollutedParallel = p => get('/getCityPollutedParallel/', p);
 export const getProvinceMap = p => get('/getProvinceMap/',p);
 
 export const getCityMap = p => get('/getCityMap/',p);
+
+export const getTwoParamsRelationship = p => get('/getTwoParamsRelationship',p);

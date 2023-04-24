@@ -1,7 +1,7 @@
 <template>
-  <div id="rela">
+  <!-- <div id="rela"> -->
       <Relationshipchart/>
-  </div>
+  <!-- </div> -->
 
 
 </template>

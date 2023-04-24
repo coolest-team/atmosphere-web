@@ -14,7 +14,7 @@ export default {
       radioData: [
         { value: "AQI", id: "AQI", checked: "true"},
         { value: "SO2", id: "SO2" },
-        { value: "O3", id: "O3" },
+        { value: "PM2.5", id: "PM2.5" },
       ]
     };
   },

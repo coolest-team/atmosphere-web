@@ -2,8 +2,8 @@
   <div class="parent">
     <div class="map">
       <small-title title="地图面板" />
-      <mapc-chart v-show="drill==false" :date="date" @getname="changename" @getename="changeename" @getdrill="changeDrill" @chinadata="chinaData" @gethovername="changeHoverName"/>
-      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" @getname="changename" @getdrill="changeDrill" @provincedata="provinceData" @gethovername="changeHoverName"/>
+      <mapc-chart v-show="drill==false" :date="date" :pollu="pollu" @getname="changename" @getename="changeename" @getdrill="changeDrill" @chinadata="chinaData" @gethovername="changeHoverName"/>
+      <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" :pollu="pollu" @getname="changename" @getdrill="changeDrill" @provincedata="provinceData" @gethovername="changeHoverName"/>
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />

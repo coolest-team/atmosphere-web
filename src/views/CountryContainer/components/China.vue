@@ -36,14 +36,14 @@ export default {
         },
         visualMap: {
           type: "piecewise",
-          pieces: [
-            { min: 300, max: 500, label: "严重污染", color: "#990000" },
-            { min: 200, max: 300, label: "重度污染", color: "#d7301f" },
-            { min: 150, max: 200, label: "中度污染", color: "#ef6548" },
-            { min: 100, max: 150, label: "轻度污染", color: "#fc8d59" },
-            { min: 50, max: 100, label: "良", color: "#fdbb84" },
-            { min: 0, max: 50, label: "优", color: "#fdd49e" }
-          ],
+          // pieces: [
+          //   { min: 300, max: 500, label: "严重污染", color: "#990000" },
+          //   { min: 200, max: 300, label: "重度污染", color: "#d7301f" },
+          //   { min: 150, max: 200, label: "中度污染", color: "#ef6548" },
+          //   { min: 100, max: 150, label: "轻度污染", color: "#fc8d59" },
+          //   { min: 50, max: 100, label: "良", color: "#fdbb84" },
+          //   { min: 0, max: 50, label: "优", color: "#fdd49e" }
+          // ],
           right: 530,
           top: 400
         },
@@ -127,14 +127,52 @@ export default {
     };
   },
   props: {
-    date: String
+    date: String,
+    pollu: String
   },
   methods: {
     initData() {
       getProvinceMap({ date: this.date }).then(resp => {
         var temp = [];
-        for (let i = 0; i < resp.data.length; i++) {
-          temp.push({ name: resp.data[i][7], value: resp.data[i][0] });
+        if(this.pollu=='AQI')
+        {
+          for (let i = 0; i < resp.data.length; i++) {
+            temp.push({ name: resp.data[i][7], value: resp.data[i][0] });
+          }
+          this.option.visualMap.pieces=[
+            {min: 300, max: 500,label: '严重污染',color: '#990000'},
+            {min: 200, max: 300,label: '重度污染',color: '#d7301f'},
+            {min: 150, max: 200,label: '中度污染',color: '#ef6548'},
+            {min: 100, max: 150,label: '轻度污染',color: '#fc8d59'},
+            {min: 50, max: 100,label: '良',color: '#fdbb84'},
+            {min: 0, max: 50, label: '优',color: '#fdd49e'},
+          ]
+        }
+        else if(this.pollu=="SO2"){
+          for (let i = 0; i < resp.data.length; i++) {
+            temp.push({ name: resp.data[i][7], value: resp.data[i][3] });
+          }
+          this.option.visualMap.pieces=[
+            {min: 1600, max: 2620,color: '#990000'},
+            {min: 800, max: 1600,color: '#d7301f'},
+            {min: 475, max: 800,color: '#ef6548'},
+            {min: 150, max: 475,color: '#fc8d59'},
+            {min: 50, max: 150,color: '#fdbb84'},
+            {min: 0, max: 50,color: '#fdd49e'},
+          ]
+        }
+        else if(this.pollu=="PM2.5"){
+          for (let i = 0; i < resp.data.length; i++) {
+            temp.push({ name: resp.data[i][7], value: resp.data[i][1] });
+          }
+          this.option.visualMap.pieces=[
+            {min: 250, max: 500,color: '#990000'},
+            {min: 150, max: 250,color: '#d7301f'},
+            {min: 115, max: 150,color: '#ef6548'},
+            {min: 75, max: 115,color: '#fc8d59'},
+            {min: 35, max: 75,color: '#fdbb84'},
+            {min: 0, max: 35,color: '#fdd49e'},
+          ]
         }
         this.citydata = temp;
         temp.sort((a, b) => {
@@ -156,6 +194,8 @@ export default {
           ename = "xizang";
         } else if (params.name == "陕西") {
           ename = "shanxi1";
+        } else if(params.name == "重庆"){
+          ename = "chongqing";
         }
         _this.$emit("getdrill", true);
         _this.$emit("getname", params.name);
@@ -185,6 +225,9 @@ export default {
       this.myChart.setOption(this.option);
     },
     date: function() {
+      this.initData();
+    },
+    pollu:function (){
       this.initData();
     }
   }

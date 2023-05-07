@@ -9,6 +9,7 @@
                 <nav>
                     <router-link active-class="active" to="/overview">全国态势分析</router-link>
                     <router-link active-class="active" to="/predict">未来污染预测</router-link>
+                    <router-link active-class="active" to="/wind">风场图</router-link>
                 </nav>
             </div>
             <!-- <div class="box">

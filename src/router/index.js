@@ -20,6 +20,11 @@ const routes = [
     name: "predict",
     component: () => import("../views/PredictContainer/index.vue"),
   },
+  {
+    path: "/wind",
+    name: "wind",
+    component: () => import("../views/WindContainer/index.vue"),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,10 +1,16 @@
 <template>
-  <a-spin :spinning="spinning" size="small">
-    <div id="map" style="margin:0 auto;width: 100%;height: 640px;"></div>
-  </a-spin>
+  <div class="parent">
+    <a-spin :spinning="spinning" size="small">
+      <div class="switchtime">
+        <DateSelect />
+      </div>
+      <div class="leaflet" id="map" style="margin:0 auto;width: 100%;height: 640px;"></div>
+    </a-spin>
+  </div>
 </template>
 
 <script>
+import DateSelect from "@/components/DateSelect";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-velocity/dist/leaflet-velocity.css";
@@ -15,6 +21,9 @@ import datas from "./wind-global.json";
 //  至此结束，风场数据已经可以展示在地图中！
 //  有什么不理解的地方或者报错的地方欢迎留言
 export default {
+  components: {
+    DateSelect
+  },
   mounted() {
     this.initMap();
   },
@@ -29,28 +38,55 @@ export default {
       //   }
       // );
       var normalm = L.tileLayer.chinaProvider("Google.Normal.Map");
+      var gray = L.tileLayer.chinaProvider("Geoq.Normal.Gray");
+      var satellite = L.tileLayer.chinaProvider("Google.Satellite.Map");
+      var baseLayers = {
+        Google: normalm,
+        "Grey Canvas": gray,
+        Satellite: satellite
+      };
+
       //生成风场实例
       var velocityLayer = L.velocityLayer({
         displayValues: true,
         displayOptions: {
           velocityType: "GBR Wind",
           displayPosition: "bottomleft",
-          displayEmptyString: "No wind data"
+          // no data at cursor
+          emptyString: "No velocity data",
+          // see explanation below
+          angleConvention: "bearingCW",
+          // display cardinal direction alongside degrees
+          showCardinal: false,
+          // one of: ['ms', 'k/h', 'mph', 'kt']
+          speedUnit: "m/s",
+          // direction label prefix
+          directionString: "Direction",
+          // speed label prefix
+          speedString: "Speed"
         },
         data: datas, //风场数据
         minVelocity: 0, //Velocity：速率
         maxVelocity: 10,
         velocityScale: 0.005,
-        particleMultiplier: 1 / 1200, //粒子的数量
-        lineWidth: 5, //粒子的粗细
+        particleMultiplier: 1 / 100, //粒子的数量
+        lineWidth: 2, //粒子的粗细
         frameRate: 15, //定义每秒执行的次数
         colorScale: [
-          "rgb(47,112,47)",
-          "rgb(47,112,47)",
-          "rgb(47,112,47)",
-          "rgb(47,112,47)",
-          "rgb(47,112,47)"
+          "rgb(63,114,167)",
+          "rgb(161,211,162)",
+          "rgb(244,250,204)",
+          "rgb(221,122,90)",
+          "rgb(140,21,53)"
         ]
+        // OPTIONAL
+        // minVelocity: 0, // used to align color scale
+        // maxVelocity: 10, // used to align color scale
+        // velocityScale: 0.005, // modifier for particle animations, arbitrarily defaults to 0.005
+        // colorScale: [], // define your own array of hex/rgb colors
+        // onAdd: null, // callback function
+        // onRemove: null, // callback function
+        // opacity: 0.97 // layer opacity, default 0.97
       });
       //添加风场样式至地图中
       this.map = L.map("map", {
@@ -62,33 +98,27 @@ export default {
       });
       // 风场实例添加到地图上
       velocityLayer.addTo(this.map);
-      // var velocityLayer = L.velocityLayer({
-      //   displayValues: true,
-      //   displayOptions: {
-      //     velocityType: "Global Wind",
-      //     position: "bottomleft",
-      //     emptyString: "No wind data"
-      //   },
-      //   data: datas,
-      //   maxVelocity: 15
-      // });
-      // layerControl.addOverlay(velocityLayer, "Wind - Global");
-      // $.getJSON("wind-global.json", function(data) {
-      //   var velocityLayer = L.velocityLayer({
-      //     displayValues: true,
-      //     displayOptions: {
-      //       velocityType: "Global Wind",
-      //       position: "bottomleft",
-      //       emptyString: "No wind data"
-      //     },
-      //     data: data,
-      //     maxVelocity: 15
-      //   });
-
-      //   layerControl.addOverlay(velocityLayer, "Wind - Global");
-      // });
+      var layerControl = L.control.layers(baseLayers);
+      layerControl.addTo(this.map);
+    },
+    dateChange(obj) {
+      console.log(obj.year + "-" + obj.month + "-" + obj.day);
     }
   }
 };
 </script>
 
+<style scoped>
+.parent {
+  position: relative;
+}
+.switchtime {
+  position: absolute;
+  z-index: 2;
+  left: 38%;
+}
+.leaflet {
+  position: absolute;
+  z-index: 1;
+}
+</style>

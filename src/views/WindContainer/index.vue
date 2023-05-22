@@ -17,12 +17,19 @@ import "leaflet-velocity/dist/leaflet-velocity.css";
 import "leaflet-velocity/dist/leaflet-velocity";
 import "leaflet.chinatmsproviders";
 import datas from "./wind-global.json";
+import { getWind } from "@/request/api";
 //  注：this.datas为风场数据 格式类型可参照wind-js-server 的grib2json格式
 //  至此结束，风场数据已经可以展示在地图中！
 //  有什么不理解的地方或者报错的地方欢迎留言
 export default {
   components: {
     DateSelect
+  },
+  data() {
+    return {
+      u: [],
+      v: []
+    };
   },
   mounted() {
     this.initMap();
@@ -68,7 +75,7 @@ export default {
         data: datas, //风场数据
         minVelocity: 0, //Velocity：速率
         maxVelocity: 10,
-        velocityScale: 0.005,
+        velocityScale: 0.015,
         particleMultiplier: 1 / 100, //粒子的数量
         lineWidth: 2, //粒子的粗细
         frameRate: 15, //定义每秒执行的次数
@@ -100,9 +107,26 @@ export default {
       velocityLayer.addTo(this.map);
       var layerControl = L.control.layers(baseLayers);
       layerControl.addTo(this.map);
+      this.vl = velocityLayer;
     },
     dateChange(obj) {
       console.log(obj.year + "-" + obj.month + "-" + obj.day);
+      getWind({
+        year: obj.year,
+        month: obj.month,
+        day: obj.day
+      }).then(res => {
+        var alldata = res.data;
+        this.u = alldata[0].split(',').map(Number);
+        this.v = alldata[1].split(',').map(Number);
+        console.log(datas[0].data);
+        console.log(datas[1].data);
+        datas[0].data = this.u;
+        datas[1].data = this.v;
+        console.log(datas);
+      });
+      this.vl.setData(datas);
+      console.log(this.vl);
     }
   }
 };

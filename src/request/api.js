@@ -2,6 +2,8 @@ import {get} from "@/request/http";
 
 export const getTimeline = p => get('/getTimeline/',p);
 
+export const getWind = p => get('/getWind/',p);
+
 export const getProvinceGauge = p => get('/getProvinceGauge/',p);
 
 export const getCityGauge = p => get('/getCityGauge/', p);

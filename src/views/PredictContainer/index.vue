@@ -1,22 +1,32 @@
 <template>
   <div class="parent">
     <div class="div1">
-      <small-title title="1" />啊啊啊
+      <small-title title="地图面板" />
+      <mapc-chart/>
     </div>
     <div class="div2">
-      <small-title title="2" />啊啊啊
+      <small-title title="表格面板" />
+      <table-chart/>
     </div>
     <div class="div3">
-      <small-title title="3" />啊啊啊
+      <small-title title="折线图面板" />
+      <line-chart/>
     </div>
   </div>
 </template>
 
 <script>
 import smallTitle from "@/components/smallTitle";
+import mapcChart from "./components/China";
+import tableChart from"./components/table";
+import lineChart from"./components/line";
 export default {
   components: {
-    smallTitle
+    smallTitle,
+    mapcChart,
+    tableChart,
+    lineChart
+
   }
 };
 </script>

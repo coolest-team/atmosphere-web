@@ -1,5 +1,5 @@
 <template>
-  <div id="main" style="width: 100%;height: 300px;"></div>
+  <div id="main" style="width: 95%;height: 300px; top:5%"></div>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
 					},
 					grid: {
 						left: '3%',
-						right: '4%',
+						right: '15%',
 						bottom: '3%',
 						containLabel: true
 					},
@@ -39,7 +39,7 @@ export default {
 
 					},
 					yAxis: {
-            name: "数量",
+            name: "值",
 						type: 'value'
 					},
 					//三条折线就有三种series，可以更改type以改变是否为折线

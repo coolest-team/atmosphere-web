@@ -162,8 +162,7 @@ export default {
         _this.$emit("getename", ename);
       });
       this.myChart.on("mouseover", function(params) {
-        // var ename = pinyin.getFullChars(params.name);
-        _this.$emit("gethovername", params.name);
+        _this.$emit("getname", params.name);
       });
     }
   },

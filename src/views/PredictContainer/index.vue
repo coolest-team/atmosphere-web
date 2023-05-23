@@ -2,24 +2,25 @@
   <div class="parent">
     <div class="div1">
       <small-title title="地图面板" />
-      <mapc-chart/>
+      <mapc-chart @getname="changename"/>
     </div>
     <div class="div2">
       <small-title title="表格面板" />
-      <table-chart/>
+      <table-chart :resultlist="resultlist"/>
     </div>
     <div class="div3">
       <small-title title="折线图面板" />
-      <line-chart/>
+      <line-chart :resultlist="resultlist"/>
     </div>
   </div>
 </template>
 
 <script>
+import { getPrediction } from "../../request/api";
 import smallTitle from "@/components/smallTitle";
 import mapcChart from "./components/China";
 import tableChart from"./components/table";
-import lineChart from"./components/line";
+import lineChart from "./components/linechart";
 export default {
   components: {
     smallTitle,
@@ -27,6 +28,30 @@ export default {
     tableChart,
     lineChart
 
+  },
+  data(){
+    return{
+      resultlist:[ ['2019-01-01', 88.53641510009766, 63.31958770751953, 29.770278930664062, '山东'],['2019-01-02', 94.0699234008789, 71.01244354248047, 30.877880096435547, '山东'], ['2019-01-03', 94.04104614257812, 71.25420379638672, 32.232017517089844, '山东']]
+    }
+  },
+  methods:{
+    changename(hovername){
+      this.hovername=hovername
+      var temp=[]
+      for(let i=0;i<this.datalist.length;i++){
+        if(this.datalist[i][4]==this.hovername){
+          temp.push(this.datalist[i])
+        }
+      }
+      this.resultlist=temp
+      console.log("result")
+      console.log(this.resultlist)
+    }
+  },
+  mounted() {
+     getPrediction({ }).then(resp => {
+       this.datalist=resp.data
+     })
   }
 };
 </script>

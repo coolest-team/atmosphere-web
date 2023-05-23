@@ -17,3 +17,5 @@ export const getProvinceMap = p => get('/getProvinceMap/',p);
 export const getCityMap = p => get('/getCityMap/',p);
 
 export const getTwoParamsRelationship = p => get('/getTwoParamsRelationship',p);
+
+export const getPrediction = p => get('/getPrediction',p);

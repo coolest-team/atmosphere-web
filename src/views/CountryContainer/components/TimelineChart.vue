@@ -14,8 +14,12 @@ export default {
       unhelthy: [],
       dangerous: [],
       hazardous: [],
-      dates: []
+      dates: [],
+      year: "2016",
     };
+  },
+  props: {
+    date: String,
   },
   mounted() {
     this.initData();
@@ -24,7 +28,7 @@ export default {
     initData() {
       this.mapFn();
       getTimeline({
-        year: "2016"
+        year: this.year,
       }).then(res => {
         this.renderData = res.data;
         this.good = res.data.good;
@@ -196,6 +200,14 @@ export default {
         myChart.resize();
       });
     }
+  },
+  watch: {
+    date: function(newVal, oldVal) {
+      console.log(newVal, oldVal);
+      console.log("有没有在watch啊data取year");
+      this.year = newVal.slice(0,4);
+      this.initData();
+    },
   }
 };
 </script>

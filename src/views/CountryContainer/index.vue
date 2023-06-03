@@ -2,12 +2,13 @@
   <div class="parent">
     <div class="map">
       <small-title title="地图面板" />
+      <select-year @getYear="changeYear" />
       <mapc-chart v-show="drill==false" :date="date" :pollu="pollu" @getname="changename" @getename="changeename" @getdrill="changeDrill" @chinadata="chinaData" @gethovername="changeHoverName"/>
       <mapp-chart v-show="drill==true" :date="date" :ename="ename" :name="name" :pollu="pollu" @getname="changename" @getdrill="changeDrill" @provincedata="provinceData" @gethovername="changeHoverName"/>
     </div>
     <div class="timeline">
       <small-title title="时间轴面板" />
-      <timeline-chart @getDate="changeDate" />
+      <timeline-chart @getDate="changeDate" :date="date"/>
     </div>
     <div class="parallel">
       <small-title title="平行坐标" />
@@ -35,6 +36,7 @@
 
 <script>
 import smallTitle from "@/components/smallTitle";
+import selectYear from "@/components/SelectYear";
 import mapcChart from "./components/China";
 import RadioBox from "@/components/RadioBox";
 import mappChart from "./components/Province";
@@ -49,6 +51,7 @@ export default {
   components: {
     pollutionChart,
     smallTitle,
+    selectYear,
     RadioBox,
     ranking,
     timelineChart,
@@ -75,6 +78,9 @@ export default {
     changeHoverName(hovername) {
       this.hovername = hovername;
       console.log("index.vue里的hovername", this.hovername);
+    },
+    changeYear(year){
+      this.date = year.toString() + "-01-01";
     },
     changeDate(date) {
       this.date = date;

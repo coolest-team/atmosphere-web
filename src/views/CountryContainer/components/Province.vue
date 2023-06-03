@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="z-index:1;">
     <Button type="button" class="back" @click="goBack()">返回</Button>
     <div :id="id" class="provinceCharts"></div>
 <!--    <Button type="button" class="back" @click="goBack()">返回</Button>-->

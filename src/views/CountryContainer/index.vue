@@ -19,8 +19,8 @@
       <ranking :data="chinadata"/>
     </div>
     <div class="relationship">
-      <small-title title="污染物与物理情况关系图" />
-      <Relationship />
+      <small-title title="温度与AQI关系图" />
+      <TempA :date="date" :name="name" :hovername="hovername"/>
     </div>
     <div class="pollunum">
       <small-title :title="`${this.hovername}数值显示`" />
@@ -45,7 +45,7 @@ import ranking from "./components/Rank";
 import timelineChart from "./components/TimelineChart";
 import RingGauge from "./components/RingGauge";
 import WeatherTable from "./components/WeatherTable";
-import Relationship from "./components/Relationship";
+import TempA from "@/views/CountryContainer/components/TempA";
 export default {
   name: "index",
   components: {
@@ -59,7 +59,7 @@ export default {
     mappChart,
     RingGauge,
     WeatherTable,
-    Relationship
+    TempA
   },
   data() {
     return {

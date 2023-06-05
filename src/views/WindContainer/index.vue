@@ -4,7 +4,7 @@
       <div class="switchtime">
         <DateSelect />
       </div>
-      <div class="leaflet" id="map" style="margin:0 auto;width: 100%;height: 640px;"></div>
+      <div class="leaflet" id="map" style="margin:0 auto;width: 100%;height: 740px;"></div>
     </a-spin>
   </div>
 </template>
